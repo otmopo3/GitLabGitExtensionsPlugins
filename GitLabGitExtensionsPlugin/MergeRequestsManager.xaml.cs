@@ -23,6 +23,6 @@ namespace GitLabGitExtensionsPlugin
 		public MergeRequestsManager()
 		{
 			InitializeComponent();
-		}
+		}		
 	}
 }

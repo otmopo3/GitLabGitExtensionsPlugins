@@ -25,6 +25,10 @@ namespace GitLabGitExtensionsPlugin
 
 		public string Title => _mergeRequest.Title;
 
+		public int DownVotes => _mergeRequest.Downvotes;
+
+		public int UpVotes => _mergeRequest.Upvotes;
+
 		public ICommand SwitchToBranchCommand { get; }
 
 		private void OnSwitchToBranchCommand(object state)
