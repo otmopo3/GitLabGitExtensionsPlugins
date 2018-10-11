@@ -14,17 +14,17 @@
 			<ColumnDefinition Width="100" />
 		</Grid.ColumnDefinitions>
 		<DataGrid x:Name="MergeRequests"
-				  AutoGenerateColumns="False"				 
-				  ItemsSource="{Binding OpenedMergeRequests}" >
+				  AutoGenerateColumns="False"
+				  ItemsSource="{Binding OpenedMergeRequests}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Assignee"
 									Binding="{Binding Assignee}" />
 				<DataGridTextColumn Header="SourceBranch"
-									Binding="{Binding SourceBranch}" 
-									Width="150"/>
+									Binding="{Binding SourceBranch}"
+									Width="150" />
 				<DataGridTextColumn Header="Title"
-									Binding="{Binding Title}" 
-									Width="200"/>
+									Binding="{Binding Title}"
+									Width="200" />
 				<DataGridTextColumn Header="UpdatedAt"
 									Binding="{Binding UpdatedAt}" />
 				<DataGridTextColumn Header="👍"
@@ -33,9 +33,11 @@
 									Binding="{Binding DownVotes}" />
 			</DataGrid.Columns>
 		</DataGrid>
-		<Button Grid.Column="2"
-				Height="50"
-				VerticalAlignment="Top"
-				Command="{Binding SelectedItem.SwitchToBranchCommand, ElementName=MergeRequests}">Switch to</Button>
+		<StackPanel Grid.Column="2"
+					DataContext="{Binding SelectedItem, ElementName=MergeRequests}"
+					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
+			<Button Command="{Binding SwitchToBranchCommand}">Switch to</Button>
+			<Button Command="{Binding OpenInBrowserCommand}">Open in browser</Button>
+		</StackPanel>
 	</Grid>
 </UserControl>

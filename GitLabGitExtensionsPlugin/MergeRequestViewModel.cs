@@ -1,4 +1,6 @@
 ﻿using NGitLab.Models;
+using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace GitLabGitExtensionsPlugin
@@ -7,13 +9,18 @@ namespace GitLabGitExtensionsPlugin
 	{
 		private readonly MergeRequest _mergeRequest;
 		private readonly GitModel _gitModel;
+		private readonly GitLabModel _gitLabModel;
 
-		public MergeRequestViewModel(MergeRequest mergeRequest, GitModel gitModel)
+		public MergeRequestViewModel(MergeRequest mergeRequest, GitModel gitModel, GitLabModel gitLabModel)
 		{
 			_mergeRequest = mergeRequest;
 			_gitModel = gitModel;
+			_gitLabModel = gitLabModel;
 			SwitchToBranchCommand = new RelayCommand<object>(OnSwitchToBranchCommand);
+
+			OpenInBrowserCommand = new RelayCommand<object>(OnOpenInBrowserCommand);
 		}
+			
 
 		public string SourceBranch => _mergeRequest.SourceBranch;
 
@@ -31,9 +38,18 @@ namespace GitLabGitExtensionsPlugin
 
 		public ICommand SwitchToBranchCommand { get; }
 
+		public ICommand OpenInBrowserCommand { get; }
+
 		private void OnSwitchToBranchCommand(object state)
 		{
 			_gitModel.CheckoutBranch(SourceBranch);
+		}
+
+		private void OnOpenInBrowserCommand(object obj)
+		{
+			var url = _gitLabModel.GetMergeRequestUrl(_mergeRequest);
+
+			Process.Start(url);
 		}
 
 

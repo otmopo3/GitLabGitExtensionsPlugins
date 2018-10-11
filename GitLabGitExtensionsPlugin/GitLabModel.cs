@@ -43,5 +43,14 @@ namespace GitLabGitExtensionsPlugin
 
 			return openedMergeRequests;
 		}
+
+		public string GetMergeRequestUrl(MergeRequest mergeRequest)
+		{
+			var projectUrl = _project.WebUrl;
+
+			var mrUrl = $"{projectUrl}/merge_requests/{mergeRequest.Iid}";
+
+			return mrUrl;
+		}
 	}
 }

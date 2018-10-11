@@ -16,7 +16,7 @@ namespace GitLabGitExtensionsPlugin
 			_gitLabModel = gitLabModel;
 			_gitModel = gitModel;
 
-			var mergeRequests = _gitLabModel.GetOpenedMergeRequests().Select(mr => new MergeRequestViewModel(mr, gitModel));
+			var mergeRequests = _gitLabModel.GetOpenedMergeRequests().Select(mr => new MergeRequestViewModel(mr, gitModel, gitLabModel));
 
 			OpenedMergeRequests.AddAll(mergeRequests);			
 		}
