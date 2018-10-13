@@ -31,6 +31,8 @@
 									Binding="{Binding UpVotes}" />
 				<DataGridTextColumn Header="👎"
 									Binding="{Binding DownVotes}" />
+				<DataGridTextColumn Header="PipelineStatus"
+									Binding="{Binding PipelineStatus}" />
 			</DataGrid.Columns>
 		</DataGrid>
 		<StackPanel Grid.Column="2"
