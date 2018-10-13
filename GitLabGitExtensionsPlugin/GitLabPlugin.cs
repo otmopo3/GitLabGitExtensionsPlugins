@@ -45,7 +45,7 @@ namespace GitLabGitExtensionsPlugin
 
 			var remoteUrl = gitModule.GetRemotes().First().FetchUrl;
 
-			GitModel gitModel = new GitModel(gitModule, args.OwnerForm);						
+			GitModel gitModel = new GitModel(gitModule, args.OwnerForm, (GitUICommands)args.GitUICommands);						
 
 			var gitLabAddress = _gitLabAddress.ValueOrDefault(Settings);
 
