@@ -17,8 +17,8 @@
 				  AutoGenerateColumns="False"
 				  ItemsSource="{Binding OpenedMergeRequests}">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Assignee"
-									Binding="{Binding Assignee}" />
+				<DataGridTextColumn Header="User"
+									Binding="{Binding User}" />
 				<DataGridTextColumn Header="SourceBranch"
 									Binding="{Binding SourceBranch}"
 									Width="150" />

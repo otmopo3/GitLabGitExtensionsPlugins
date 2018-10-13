@@ -28,7 +28,7 @@ namespace GitLabGitExtensionsPlugin
 
 		public string TargetBranch => _mergeRequest.TargetBranch;
 
-		public string Assignee => _mergeRequest.Assignee.Username;
+		public string User => _mergeRequest.Assignee?.Username ?? _mergeRequest.Author.Username;
 
 		public string UpdatedAt => _mergeRequest.UpdatedAt.ToShortDateString();
 
