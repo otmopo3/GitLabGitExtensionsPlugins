@@ -1,8 +1,6 @@
-﻿using GitCommands;
-using GitUIPluginInterfaces;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace GitLabGitExtensionsPlugin
 {
@@ -18,9 +16,37 @@ namespace GitLabGitExtensionsPlugin
 
 			var mergeRequests = _gitLabModel.GetOpenedMergeRequests().Select(mr => new MergeRequestViewModel(mr, gitModel, gitLabModel));
 
-			OpenedMergeRequests.AddAll(mergeRequests);			
+			OpenedMergeRequests.AddAll(mergeRequests);
+
+			UpdatePipeLines();
 		}
 
-		public ObservableCollection<MergeRequestViewModel> OpenedMergeRequests { get; } = new ObservableCollection<MergeRequestViewModel>();		
+		public ObservableCollection<MergeRequestViewModel> OpenedMergeRequests { get; } = new ObservableCollection<MergeRequestViewModel>();
+
+		private void UpdatePipeLines()
+		{
+			Task.Factory.StartNew(() =>
+			{
+				var mrList = OpenedMergeRequests.ToList();
+
+				var pipelines = _gitLabModel.GetPipelines();
+
+				foreach (var pipeline in pipelines)
+				{
+					var mergeRequest = mrList.FirstOrDefault(mr => mr.SourceBranch == pipeline.Ref);
+
+					if (mergeRequest == null)
+						continue;
+
+					mergeRequest.PipelineStatus = (MergeRequestPipelineStatus)(int)pipeline.Status;
+
+					mrList.Remove(mergeRequest);
+
+					if (!mrList.Any())
+						break;
+				}
+
+			}, TaskCreationOptions.LongRunning);
+		}
 	}
 }

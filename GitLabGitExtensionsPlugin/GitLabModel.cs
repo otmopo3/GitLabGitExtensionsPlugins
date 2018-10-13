@@ -52,5 +52,14 @@ namespace GitLabGitExtensionsPlugin
 
 			return mrUrl;
 		}
+
+		public IEnumerable<PipelineData> GetPipelines()
+		{
+			var repository = _gitLabCLient.GetRepository(_project.Id);
+
+			var pipelines = repository.Pipelines.All();
+
+			return pipelines;
+		}
 	}
 }
