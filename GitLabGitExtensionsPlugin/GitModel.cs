@@ -1,6 +1,5 @@
 ﻿using GitCommands;
 using GitUI;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GitLabGitExtensionsPlugin
@@ -24,14 +23,11 @@ namespace GitLabGitExtensionsPlugin
 
 			var remoteBranch = $"{defaultRemote}/{branch}";
 
-			//gitUiCommands.BrowseRepo.
+			var fetchCmdArguments = _gitModule.FetchCmd(defaultRemote, "", "");
 
-			var pull = _gitModule.FetchCmd(defaultRemote, "", "");
-
-
+			var fetchCmdResult = _gitModule.RunGitCmd(fetchCmdArguments);
 
 			gitUiCommands.StartCheckoutRemoteBranch(_ownerForm, remoteBranch);
 		}
 	}
-
 }
