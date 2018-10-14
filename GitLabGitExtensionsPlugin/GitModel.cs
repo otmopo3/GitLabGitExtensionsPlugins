@@ -23,11 +23,17 @@ namespace GitLabGitExtensionsPlugin
 
 			var remoteBranch = $"{defaultRemote}/{branch}";
 
-			var fetchCmdArguments = _gitModule.FetchCmd(defaultRemote, "", "");
+			_gitUiCommands.RepoChangedNotifier.Lock();
 
-			var fetchCmdResult = _gitModule.RunGitCmd(fetchCmdArguments);
+			var gitFetchCmfArgs = _gitModule.FetchCmd(string.Empty, string.Empty, string.Empty);
 
-			_gitUiCommands.StartCheckoutRemoteBranch(_ownerForm, remoteBranch);			
+			FormProcess.ShowDialog((GitModuleForm)_ownerForm, gitFetchCmfArgs);
+
+			_gitUiCommands.RepoChangedNotifier.Notify();
+
+			_gitUiCommands.StartCheckoutRemoteBranch(_ownerForm, remoteBranch);
+
+			_gitUiCommands.RepoChangedNotifier.UnLock(requestNotify: true);
 		}
 	}
 }

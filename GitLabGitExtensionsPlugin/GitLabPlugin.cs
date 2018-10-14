@@ -45,7 +45,7 @@ namespace GitLabGitExtensionsPlugin
 
 			var remoteUrl = gitModule.GetRemotes().First().FetchUrl;
 
-			GitModel gitModel = new GitModel(gitModule, args.OwnerForm, (GitUICommands)args.GitUICommands);						
+			GitModel gitModel = new GitModel(gitModule, args.OwnerForm, (GitUICommands)args.GitUICommands);
 
 			var gitLabAddress = _gitLabAddress.ValueOrDefault(Settings);
 
@@ -53,9 +53,10 @@ namespace GitLabGitExtensionsPlugin
 
 			var gitLabModel = GitLabModel.Create(gitLabAddress, gitLabKey, remoteUrl);
 
-			var pluginWindow = new PluginWindow();
-
-			pluginWindow.DataContext = new MergeRequestsManagerViewModel(gitLabModel, gitModel);
+			var pluginWindow = new PluginWindow
+			{
+				DataContext = new MergeRequestsManagerViewModel(gitLabModel, gitModel)
+			};
 
 			pluginWindow.Show();
 
@@ -69,6 +70,7 @@ namespace GitLabGitExtensionsPlugin
 			var projectFolder = Path.GetDirectoryName(workingDir);
 
 			string projectName = projectFolder.Split(Path.DirectorySeparatorChar).Last().ToLowerInvariant();
+
 			return projectName;
 		}
 	}
