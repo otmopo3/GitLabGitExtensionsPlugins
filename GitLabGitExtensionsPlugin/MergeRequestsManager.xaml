@@ -57,6 +57,8 @@
 					Grid.Row="0"
 					DataContext="{Binding SelectedItem, ElementName=MergeRequests}"
 					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
+			<Button DataContext="{Binding ElementName=MergeRequests, Path=DataContext}"
+					Command="{Binding UpdateCommand}">Update all</Button>
 			<Button Command="{Binding SwitchToBranchCommand}">Switch to</Button>
 			<Button Command="{Binding OpenInBrowserCommand}">Open in browser</Button>
 			<Button Command="{Binding AcceptMergeRequestCommand}">Accept</Button>

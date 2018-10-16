@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace GitLabGitExtensionsPlugin
 {
@@ -14,15 +15,28 @@ namespace GitLabGitExtensionsPlugin
 			_gitLabModel = gitLabModel;
 			_gitModel = gitModel;
 
-			FillMergeRequests();
+			UpdateCommand = new RelayCommand<object>(OnUpdateCommand);
+
+			UpdateMergeRequests();
 
 			UpdatePipeLines();
 		}
 
 		public ObservableCollection<MergeRequestViewModel> OpenedMergeRequests { get; } = new ObservableCollection<MergeRequestViewModel>();
 
-		private void FillMergeRequests()
+		public ICommand UpdateCommand { get; }
+
+		private void OnUpdateCommand(object obj)
 		{
+			UpdateMergeRequests();
+
+			UpdatePipeLines();
+		}
+
+		private void UpdateMergeRequests()
+		{
+			OpenedMergeRequests.Clear();
+
 			var openedMergeRequests = _gitLabModel.GetOpenedMergeRequests();
 
 			var currentBranch = _gitModel.GetCurrentBramch();
@@ -36,7 +50,7 @@ namespace GitLabGitExtensionsPlugin
 
 				OpenedMergeRequests.Add(mergeRequestVm);
 			}
-		}		
+		}
 
 		private void UpdatePipeLines()
 		{
