@@ -61,5 +61,17 @@ namespace GitLabGitExtensionsPlugin
 
 			return pipelines;
 		}
+
+		public void AcceptMergeRequest(MergeRequest mergeRequest)
+		{
+			var mergeRequestClient = _gitLabCLient.GetMergeRequest(mergeRequest.ProjectId);
+
+			MergeCommitMessage message = new MergeCommitMessage()
+			{
+				Message = mergeRequest.Title
+			};
+
+			mergeRequestClient.Accept(mergeRequest.Iid, message);
+		}
 	}
 }

@@ -59,6 +59,7 @@
 					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
 			<Button Command="{Binding SwitchToBranchCommand}">Switch to</Button>
 			<Button Command="{Binding OpenInBrowserCommand}">Open in browser</Button>
+			<Button Command="{Binding AcceptMergeRequestCommand}">Accept</Button>
 		</StackPanel>
 		<StackPanel Grid.Row="1"
 					Grid.Column="0"

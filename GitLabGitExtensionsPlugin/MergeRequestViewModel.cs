@@ -21,9 +21,12 @@ namespace GitLabGitExtensionsPlugin
 			_mergeRequest = mergeRequest;
 			_gitModel = gitModel;
 			_gitLabModel = gitLabModel;
+
 			SwitchToBranchCommand = new RelayCommand<object>(OnSwitchToBranchCommand);
 
 			OpenInBrowserCommand = new RelayCommand<object>(OnOpenInBrowserCommand);
+
+			AcceptMergeRequestCommand = new RelayCommand<object>(OnAcceptMergeRequestCommand, _ => UpVotes >= 1 && DownVotes < 1);
 		}
 
 		public string SourceBranch => _mergeRequest.SourceBranch;
@@ -76,6 +79,8 @@ namespace GitLabGitExtensionsPlugin
 
 		public ICommand OpenInBrowserCommand { get; }
 
+		public ICommand AcceptMergeRequestCommand { get; }
+
 		private void OnSwitchToBranchCommand(object state)
 		{
 			_gitModel.CheckoutBranch(SourceBranch);
@@ -86,6 +91,18 @@ namespace GitLabGitExtensionsPlugin
 			var url = _gitLabModel.GetMergeRequestUrl(_mergeRequest);
 
 			Process.Start(url);
+		}
+
+		private void OnAcceptMergeRequestCommand(object obj)
+		{
+			try
+			{
+				_gitLabModel.AcceptMergeRequest(_mergeRequest);
+			}
+			catch (Exception ex)
+			{
+				System.Windows.MessageBox.Show(ex.Message);
+			}			
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
