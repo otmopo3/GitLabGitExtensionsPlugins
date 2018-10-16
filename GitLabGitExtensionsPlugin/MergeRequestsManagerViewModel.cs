@@ -14,14 +14,29 @@ namespace GitLabGitExtensionsPlugin
 			_gitLabModel = gitLabModel;
 			_gitModel = gitModel;
 
-			var mergeRequests = _gitLabModel.GetOpenedMergeRequests().Select(mr => new MergeRequestViewModel(mr, gitModel, gitLabModel));
-
-			OpenedMergeRequests.AddAll(mergeRequests);
+			FillMergeRequests();
 
 			UpdatePipeLines();
 		}
 
 		public ObservableCollection<MergeRequestViewModel> OpenedMergeRequests { get; } = new ObservableCollection<MergeRequestViewModel>();
+
+		private void FillMergeRequests()
+		{
+			var openedMergeRequests = _gitLabModel.GetOpenedMergeRequests();
+
+			var currentBranch = _gitModel.GetCurrentBramch();
+
+			foreach (var mergeRequest in openedMergeRequests)
+			{
+				var mergeRequestVm = new MergeRequestViewModel(mergeRequest, _gitModel, _gitLabModel)
+				{
+					IsBranchCheckedOut = mergeRequest.SourceBranch == currentBranch
+				};
+
+				OpenedMergeRequests.Add(mergeRequestVm);
+			}
+		}		
 
 		private void UpdatePipeLines()
 		{

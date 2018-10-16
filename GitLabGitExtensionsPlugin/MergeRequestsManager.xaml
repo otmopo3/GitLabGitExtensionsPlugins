@@ -34,8 +34,19 @@
 				<DataGridTextColumn Header="PipelineStatus"
 									Binding="{Binding PipelineStatus}" />
 			</DataGrid.Columns>
+			<DataGrid.RowStyle>
+				<Style TargetType="DataGridRow">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsBranchCheckedOut}"
+									 Value="True">
+							<Setter Property="FontWeight"
+									Value="Bold" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</DataGrid.RowStyle>
 		</DataGrid>
-		<StackPanel Grid.Column="2"
+		<StackPanel Grid.Column="1"
 					DataContext="{Binding SelectedItem, ElementName=MergeRequests}"
 					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
 			<Button Command="{Binding SwitchToBranchCommand}">Switch to</Button>

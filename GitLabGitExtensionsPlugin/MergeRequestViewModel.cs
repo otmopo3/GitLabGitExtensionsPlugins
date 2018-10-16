@@ -13,6 +13,7 @@ namespace GitLabGitExtensionsPlugin
 		private readonly GitLabModel _gitLabModel;
 
 		private MergeRequestPipelineStatus _pipelineStatus;
+		private bool _isBranchCheckedOut;
 
 		public MergeRequestViewModel(MergeRequest mergeRequest, GitModel gitModel, GitLabModel gitLabModel)
 		{
@@ -37,6 +38,20 @@ namespace GitLabGitExtensionsPlugin
 		public int DownVotes => _mergeRequest.Downvotes;
 
 		public int UpVotes => _mergeRequest.Upvotes;
+
+		public bool IsBranchCheckedOut
+		{
+			get { return _isBranchCheckedOut; }
+
+			internal set
+			{
+				if (value == _isBranchCheckedOut)
+					return;
+
+				_isBranchCheckedOut = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public MergeRequestPipelineStatus PipelineStatus
 		{

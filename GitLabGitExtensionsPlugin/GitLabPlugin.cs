@@ -24,8 +24,6 @@ namespace GitLabGitExtensionsPlugin
 			Icon = Resources.gitlab;
 		}
 
-
-
 		public override IEnumerable<ISetting> GetSettings()
 		{
 			yield return _gitLabAddress;
@@ -36,10 +34,6 @@ namespace GitLabGitExtensionsPlugin
 		public override bool Execute(GitUIEventArgs args)
 		{
 			var module = args.GitModule;
-
-			var describe = module.GetCurrentRemote();
-
-			string projectName = GetProjectName(module);
 
 			GitModule gitModule = (GitModule)module;
 

@@ -35,5 +35,10 @@ namespace GitLabGitExtensionsPlugin
 
 			_gitUiCommands.RepoChangedNotifier.UnLock(requestNotify: true);
 		}
+
+		public string GetCurrentBramch()
+		{
+			return _gitModule.GetSelectedBranch();
+		}
 	}
 }
