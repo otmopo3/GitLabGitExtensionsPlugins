@@ -91,6 +91,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="SelectedIndexToVisibilityConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

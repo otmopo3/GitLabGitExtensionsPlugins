@@ -8,11 +8,18 @@
 			 d:DataContext="{d:DesignInstance local:MergeRequestsManagerViewModel}"
 			 d:DesignHeight="450"
 			 d:DesignWidth="800">
+	<UserControl.Resources>
+		<local:SelectedIndexToVisibilityConverter x:Key="SelectedIndexToVisibilityConverter" />
+	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="100" />
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 		<DataGrid x:Name="MergeRequests"
 				  AutoGenerateColumns="False"
 				  ItemsSource="{Binding OpenedMergeRequests}">
@@ -47,10 +54,24 @@
 			</DataGrid.RowStyle>
 		</DataGrid>
 		<StackPanel Grid.Column="1"
+					Grid.Row="0"
 					DataContext="{Binding SelectedItem, ElementName=MergeRequests}"
 					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
 			<Button Command="{Binding SwitchToBranchCommand}">Switch to</Button>
 			<Button Command="{Binding OpenInBrowserCommand}">Open in browser</Button>
+		</StackPanel>
+		<StackPanel Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					Visibility="{Binding ElementName=MergeRequests, Path=SelectedIndex, Converter={StaticResource SelectedIndexToVisibilityConverter}}"
+					DataContext="{Binding SelectedItem, ElementName=MergeRequests}"
+					d:DataContext="{d:DesignInstance local:MergeRequestViewModel}">
+			<TextBlock Text="Target Branch:" />
+			<TextBlock Text="{Binding TargetBranch}" />
+			<TextBlock Text="Labels:" />
+			<TextBlock Text="{Binding Labels}" />
+			<TextBlock Text="Description:" />
+			<TextBlock Text="{Binding Description}" />
 		</StackPanel>
 	</Grid>
 </UserControl>

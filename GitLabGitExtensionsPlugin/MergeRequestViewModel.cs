@@ -1,4 +1,5 @@
 ﻿using NGitLab.Models;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -38,6 +39,10 @@ namespace GitLabGitExtensionsPlugin
 		public int DownVotes => _mergeRequest.Downvotes;
 
 		public int UpVotes => _mergeRequest.Upvotes;
+
+		public string Description => _mergeRequest.Description;
+
+		public string Labels => String.Join(";", _mergeRequest.Labels);
 
 		public bool IsBranchCheckedOut
 		{
