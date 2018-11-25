@@ -1,5 +1,7 @@
-﻿using NGitLab;
+﻿using Newtonsoft.Json;
+using NGitLab;
 using NGitLab.Models;
+using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,16 +10,22 @@ namespace GitLabGitExtensionsPlugin
 {
 	class GitLabModel
 	{
+		private readonly string _gitLabAddress;
+		private readonly string _gitLabKey;
 		private readonly GitLabClient _gitLabCLient;
 		private readonly Project _project;
+		private readonly string _favoriteGroupFullPath;		
 
-		private GitLabModel(GitLabClient gitLabCLient, Project project)
+		private GitLabModel(string gitLabAddress, string gitLabKey, GitLabClient gitLabCLient, Project project, string favoriteGroupFullPath)
 		{
+			_gitLabAddress = gitLabAddress;
+			_gitLabKey = gitLabKey;
 			_gitLabCLient = gitLabCLient;
 			_project = project;
+			_favoriteGroupFullPath = favoriteGroupFullPath;
 		}
 
-		public static GitLabModel Create(string gitLabAddress, string gitLabKey, string projectName)
+		public static GitLabModel Create(string gitLabAddress, string gitLabKey, string projectName, string favoriteGroupFullPath)
 		{
 			GitLabClient gitLabCLient = GitLabClient.Connect(gitLabAddress, gitLabKey);
 
@@ -28,7 +36,7 @@ namespace GitLabGitExtensionsPlugin
 			var project = accessibleProjects.First(p => p.SshUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()) ||
 			p.HttpUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()));
 
-			return new GitLabModel(gitLabCLient, project);
+			return new GitLabModel(gitLabAddress, gitLabKey, gitLabCLient, project, favoriteGroupFullPath);
 		}
 
 		public List<MergeRequest> GetOpenedMergeRequests()
@@ -39,7 +47,7 @@ namespace GitLabGitExtensionsPlugin
 
 			//var reopenedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.reopened).ToList();
 
-			//openedMergeRequests.AddAll(reopenedMergeRequests);
+			//openedMergeRequests.AddAll(reopenedMergeRequests);			
 
 			return openedMergeRequests;
 		}
@@ -72,6 +80,57 @@ namespace GitLabGitExtensionsPlugin
 			};
 
 			mergeRequestClient.Accept(mergeRequest.Iid, message);
+		}
+
+		public IEnumerable<string> GetUsersFromFavoriteGroup()
+		{
+			var favoriteGroup = _gitLabCLient.Groups.Accessible().FirstOrDefault(g => g.FullPath == _favoriteGroupFullPath);
+
+			var membersList = new List<string>();
+
+			if (favoriteGroup == null)
+				return membersList;
+
+			var client = new RestClient(_gitLabAddress);
+			client.AddDefaultParameter("private_token", _gitLabKey);
+
+			var getGroupMembersRequest = new RestRequest($"api/v4/groups/{favoriteGroup.Id}/members");
+
+			var members = client.Get<List<GroupMember>>(getGroupMembersRequest);
+
+			foreach (var item in members.Data)
+			{
+				membersList.Add(item.Name);
+			}
+
+			return membersList;
+		}
+
+		class GroupMember
+		{
+			[JsonProperty("id")]
+			public int Id { get; set; }
+
+			[JsonProperty("name")]
+			public string Name { get; set; }
+
+			[JsonProperty("username")]
+			public string Username { get; set; }
+
+			[JsonProperty("state")]
+			public string State { get; set; }
+
+			[JsonProperty("avatar_url")]
+			public string AvatarUrl { get; set; }
+
+			[JsonProperty("web_url")]
+			public string WebUrl { get; set; }
+
+			[JsonProperty("access_level")]
+			public int AccessLevel { get; set; }
+
+			[JsonProperty("expires_at")]
+			public object ExpiresAt { get; set; }
 		}
 	}
 }

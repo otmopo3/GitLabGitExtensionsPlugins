@@ -41,11 +41,15 @@ namespace GitLabGitExtensionsPlugin
 
 			var currentBranch = _gitModel.GetCurrentBramch();
 
+			var favoriteGoupUsers = _gitLabModel.GetUsersFromFavoriteGroup();
+
 			foreach (var mergeRequest in openedMergeRequests)
 			{
 				var mergeRequestVm = new MergeRequestViewModel(mergeRequest, _gitModel, _gitLabModel)
 				{
-					IsBranchCheckedOut = mergeRequest.SourceBranch == currentBranch
+					IsBranchCheckedOut = mergeRequest.SourceBranch == currentBranch,
+					IsMyGroup = favoriteGoupUsers.Contains(mergeRequest.Assignee?.Name) ||
+								favoriteGoupUsers.Contains(mergeRequest.Author?.Name)
 				};
 
 				OpenedMergeRequests.Add(mergeRequestVm);
@@ -76,6 +80,6 @@ namespace GitLabGitExtensionsPlugin
 				}
 
 			}, TaskCreationOptions.LongRunning);
-		}
+		}		
 	}
 }
