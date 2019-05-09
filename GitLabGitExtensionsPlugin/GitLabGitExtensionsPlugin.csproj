@@ -55,6 +55,9 @@
     <Reference Include="ResourceManager">
       <HintPath>C:\Program Files (x86)\GitExtensions\ResourceManager.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -92,6 +95,7 @@
     </Compile>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="SelectedIndexToVisibilityConverter.cs" />
+    <Compile Include="ShowOnlyMyGroupsMrsConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -119,7 +123,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files (x86)\GitExtensions\Plugins\" /Y
-copy "$(TargetDir)RestSharp.dll" "C:\Program Files (x86)\GitExtensions\Plugins\" /Y
 copy "$(TargetDir)NGitLab.dll" "C:\Program Files (x86)\GitExtensions\Plugins\" /Y
 copy "$(TargetDir)Newtonsoft.Json.dll" "C:\Program Files (x86)\GitExtensions\Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>

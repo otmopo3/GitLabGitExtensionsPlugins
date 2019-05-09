@@ -15,6 +15,7 @@ namespace GitLabGitExtensionsPlugin
 
 		private MergeRequestPipelineStatus _pipelineStatus;
 		private bool _isBranchCheckedOut;
+		private bool _isMyGroup;
 
 		public MergeRequestViewModel(MergeRequest mergeRequest, GitModel gitModel, GitLabModel gitLabModel)
 		{
@@ -74,6 +75,21 @@ namespace GitLabGitExtensionsPlugin
 				OnPropertyChanged();
 			}
 		}
+
+		public bool IsMyGroup
+		{
+			get { return _isMyGroup; }
+
+			internal set
+			{
+				if (value == _isMyGroup)
+					return;
+
+				_isMyGroup = value;
+				OnPropertyChanged();
+			}
+		}
+
 
 		public ICommand SwitchToBranchCommand { get; }
 

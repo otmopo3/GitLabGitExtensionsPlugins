@@ -17,6 +17,8 @@ namespace GitLabGitExtensionsPlugin
 
 		private StringSetting _gitLabPrivateKey = new StringSetting("GitLab Private Key", "");
 
+		private StringSetting _gitLabFavoriteGroup = new StringSetting("GitLab Favorite Group", "dev");
+
 		public GitLabPlugin()
 		{
 			SetNameAndDescription("!!!!!GitLab");
@@ -29,6 +31,8 @@ namespace GitLabGitExtensionsPlugin
 			yield return _gitLabAddress;
 
 			yield return _gitLabPrivateKey;
+
+			yield return _gitLabFavoriteGroup;
 		}
 
 		public override bool Execute(GitUIEventArgs args)
@@ -45,7 +49,9 @@ namespace GitLabGitExtensionsPlugin
 
 			var gitLabKey = _gitLabPrivateKey.ValueOrDefault(Settings);
 
-			var gitLabModel = GitLabModel.Create(gitLabAddress, gitLabKey, remoteUrl);
+			var gitFavoriteGroup = _gitLabFavoriteGroup.ValueOrDefault(Settings);
+
+			var gitLabModel = GitLabModel.Create(gitLabAddress, gitLabKey, remoteUrl, gitFavoriteGroup);
 
 			var pluginWindow = new PluginWindow
 			{
