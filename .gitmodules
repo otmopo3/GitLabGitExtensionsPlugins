@@ -1,0 +1,4 @@
+[submodule "Externals/gitextensions"]
+	path = Externals/gitextensions
+	url = https://github.com/gitextensions/gitextensions.git
+	branch = release/3.0.2

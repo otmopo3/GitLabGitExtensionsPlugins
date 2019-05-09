@@ -33,16 +33,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GitCommands">
-      <HintPath>C:\Program Files (x86)\GitExtensions\GitCommands.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitCommands.dll</HintPath>
     </Reference>
     <Reference Include="GitExtUtils">
-      <HintPath>C:\Program Files (x86)\GitExtensions\GitExtUtils.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitExtUtils.dll</HintPath>
     </Reference>
     <Reference Include="GitUI">
-      <HintPath>C:\Program Files (x86)\GitExtensions\GitUI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitUI.dll</HintPath>
     </Reference>
     <Reference Include="GitUIPluginInterfaces">
-      <HintPath>C:\Program Files (x86)\GitExtensions\GitUIPluginInterfaces.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitUIPluginInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -53,7 +57,8 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ResourceManager">
-      <HintPath>C:\Program Files (x86)\GitExtensions\ResourceManager.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
