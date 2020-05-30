@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLabGitExtensionsPlugin", "GitLabGitExtensionsPlugin\GitLabGitExtensionsPlugin.csproj", "{3AE3AA62-38A9-44AD-84EC-817674A57A2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitExtGitLabBuildServerPlugin", "GitExtGitLabBuildServerPlugin\GitExtGitLabBuildServerPlugin.csproj", "{425F0AC8-A2FF-4C9D-8220-477177394AC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3AE3AA62-38A9-44AD-84EC-817674A57A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AE3AA62-38A9-44AD-84EC-817674A57A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AE3AA62-38A9-44AD-84EC-817674A57A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425F0AC8-A2FF-4C9D-8220-477177394AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425F0AC8-A2FF-4C9D-8220-477177394AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425F0AC8-A2FF-4C9D-8220-477177394AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425F0AC8-A2FF-4C9D-8220-477177394AC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
