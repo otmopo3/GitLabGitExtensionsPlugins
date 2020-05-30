@@ -5,6 +5,7 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace GitLabGitExtensionsPlugin
 {
@@ -14,7 +15,12 @@ namespace GitLabGitExtensionsPlugin
 		private readonly string _gitLabKey;
 		private readonly GitLabClient _gitLabCLient;
 		private readonly Project _project;
-		private readonly string _favoriteGroupFullPath;		
+		private readonly string _favoriteGroupFullPath;
+
+		static GitLabModel()
+		{
+			ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+		}
 
 		private GitLabModel(string gitLabAddress, string gitLabKey, GitLabClient gitLabCLient, Project project, string favoriteGroupFullPath)
 		{
@@ -25,18 +31,19 @@ namespace GitLabGitExtensionsPlugin
 			_favoriteGroupFullPath = favoriteGroupFullPath;
 		}
 
-		public static GitLabModel Create(string gitLabAddress, string gitLabKey, string projectName, string favoriteGroupFullPath)
+		public static async Task<GitLabModel> CreateAsync(string gitLabAddress, string gitLabKey, string projectName, string favoriteGroupFullPath)
 		{
-			GitLabClient gitLabCLient = GitLabClient.Connect(gitLabAddress, gitLabKey);
+			return await Task.Run(() =>
+			{
+				GitLabClient gitLabCLient = GitLabClient.Connect(gitLabAddress, gitLabKey);
 
-			ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+				var accessibleProjects = gitLabCLient.Projects.Accessible().ToList();
 
-			var accessibleProjects = gitLabCLient.Projects.Accessible().ToList();
+				var project = accessibleProjects.First(p => p.SshUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()) ||
+				p.HttpUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()));
 
-			var project = accessibleProjects.First(p => p.SshUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()) ||
-			p.HttpUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()));
-
-			return new GitLabModel(gitLabAddress, gitLabKey, gitLabCLient, project, favoriteGroupFullPath);
+				return new GitLabModel(gitLabAddress, gitLabKey, gitLabCLient, project, favoriteGroupFullPath);
+			});
 		}
 
 		public List<MergeRequest> GetOpenedMergeRequests()

@@ -3,6 +3,7 @@ using GitLabGitExtensionsPlugin.Properties;
 using GitUI;
 using GitUIPluginInterfaces;
 using ResourceManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -37,30 +38,41 @@ namespace GitLabGitExtensionsPlugin
 
 		public override bool Execute(GitUIEventArgs args)
 		{
-			var module = args.GitModule;
-
-			GitModule gitModule = (GitModule)module;
-
-			var remoteUrl = gitModule.GetRemotes().First().FetchUrl;
-
-			GitModel gitModel = new GitModel(gitModule, args.OwnerForm, (GitUICommands)args.GitUICommands);
-
-			var gitLabAddress = _gitLabAddress.ValueOrDefault(Settings);
-
-			var gitLabKey = _gitLabPrivateKey.ValueOrDefault(Settings);
-
-			var gitFavoriteGroup = _gitLabFavoriteGroup.ValueOrDefault(Settings);
-
-			var gitLabModel = GitLabModel.Create(gitLabAddress, gitLabKey, remoteUrl, gitFavoriteGroup);
-
-			var pluginWindow = new PluginWindow
-			{
-				DataContext = new MergeRequestsManagerViewModel(gitLabModel, gitModel)
-			};
-
-			pluginWindow.Show();
+			ShowPluginWindow(args);			
 
 			return true;
+		}
+
+		private async void ShowPluginWindow(GitUIEventArgs args)
+		{
+			try
+			{
+				var module = args.GitModule;
+
+				GitModule gitModule = (GitModule)module;
+
+				var remoteUrl = (await gitModule.GetRemotesAsync()).First().FetchUrl;
+
+				GitModel gitModel = new GitModel(gitModule, args.OwnerForm, (GitUICommands)args.GitUICommands);
+
+				var gitLabAddress = _gitLabAddress.ValueOrDefault(Settings);
+
+				var gitLabKey = _gitLabPrivateKey.ValueOrDefault(Settings);
+
+				var gitFavoriteGroup = _gitLabFavoriteGroup.ValueOrDefault(Settings);
+
+				var gitLabModel = await GitLabModel.CreateAsync(gitLabAddress, gitLabKey, remoteUrl, gitFavoriteGroup);
+
+				var pluginWindow = new PluginWindow
+				{
+					DataContext = new MergeRequestsManagerViewModel(gitLabModel, gitModel)
+				};
+
+				pluginWindow.Show();
+			}
+			catch (Exception)
+			{
+			}
 		}
 
 		private static string GetProjectName(IGitModule module)
