@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GitLabGitExtensionsPlugin
 {
-	class GitLabModel
+	public class GitLabModel
 	{
 		private readonly string _gitLabAddress;
 		private readonly string _gitLabKey;
@@ -35,26 +35,27 @@ namespace GitLabGitExtensionsPlugin
 		{
 			return await Task.Run(() =>
 			{
-				GitLabClient gitLabCLient = GitLabClient.Connect(gitLabAddress, gitLabKey);
-
-				var accessibleProjects = gitLabCLient.Projects.Accessible().ToList();
-
-				var project = accessibleProjects.First(p => p.SshUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()) ||
-				p.HttpUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()));
-
-				return new GitLabModel(gitLabAddress, gitLabKey, gitLabCLient, project, favoriteGroupFullPath);
+				return Create(gitLabAddress, gitLabKey, projectName, favoriteGroupFullPath);
 			});
+		}
+
+		public static GitLabModel Create(string gitLabAddress, string gitLabKey, string projectName, string favoriteGroupFullPath)
+		{
+			GitLabClient gitLabCLient = GitLabClient.Connect(gitLabAddress, gitLabKey);
+
+			var accessibleProjects = gitLabCLient.Projects.Accessible().ToList();
+
+			var project = accessibleProjects.First(p => p.SshUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()) ||
+			p.HttpUrl.ToLowerInvariant().Contains(projectName.ToLowerInvariant()));
+
+			return new GitLabModel(gitLabAddress, gitLabKey, gitLabCLient, project, favoriteGroupFullPath);
 		}
 
 		public List<MergeRequest> GetOpenedMergeRequests()
 		{
 			var mergeRequestClient = _gitLabCLient.GetMergeRequest(_project.Id);
 
-			var openedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.opened).ToList();
-
-			//var reopenedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.reopened).ToList();
-
-			//openedMergeRequests.AddAll(reopenedMergeRequests);			
+			var openedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.opened).ToList();	
 
 			return openedMergeRequests;
 		}
@@ -111,6 +112,15 @@ namespace GitLabGitExtensionsPlugin
 			}
 
 			return membersList;
+		}
+
+		public string GetPipelinetUrl(PipelineData pipeline)
+		{
+			var projectUrl = _project.WebUrl;
+
+			var pipelineUrl = $"{projectUrl}/pipelines/{pipeline.Id}";
+
+			return pipelineUrl;
 		}
 
 		class GroupMember

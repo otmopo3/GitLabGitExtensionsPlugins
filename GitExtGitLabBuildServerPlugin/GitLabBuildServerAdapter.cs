@@ -1,4 +1,5 @@
 ﻿using GitExtGitLabBuildServerPlugin.Settings;
+using GitLabGitExtensionsPlugin;
 using GitUI;
 using GitUIPluginInterfaces;
 using GitUIPluginInterfaces.BuildServerIntegration;
@@ -73,7 +74,7 @@ namespace GitExtGitLabBuildServerPlugin
 		{
 			try
 			{
-				var gitLab = GitLabModel.Create(_gitLabAddress, _gitLabKey, _projectName);
+				var gitLab = GitLabModel.Create(_gitLabAddress, _gitLabKey, _projectName, string.Empty);
 
 				var pipelines = gitLab.GetPipelines();
 
