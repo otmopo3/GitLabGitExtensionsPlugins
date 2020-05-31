@@ -25,6 +25,13 @@ namespace GitLabGitExtensionsPlugin
 			SetNameAndDescription("!!!!!GitLab");
 			Translate();
 			Icon = Resources.gitlab;
+		}		
+
+		public override bool Execute(GitUIEventArgs args)
+		{
+			ShowPluginWindow(args);			
+
+			return true;
 		}
 
 		public override IEnumerable<ISetting> GetSettings()
@@ -34,13 +41,6 @@ namespace GitLabGitExtensionsPlugin
 			yield return _gitLabPrivateKey;
 
 			yield return _gitLabFavoriteGroup;
-		}
-
-		public override bool Execute(GitUIEventArgs args)
-		{
-			ShowPluginWindow(args);			
-
-			return true;
 		}
 
 		private async void ShowPluginWindow(GitUIEventArgs args)
