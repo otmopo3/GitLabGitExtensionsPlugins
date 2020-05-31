@@ -20,7 +20,7 @@ namespace GitLabGitExtensionsPlugin
 
 		private StringSetting _gitLabFavoriteGroup = new StringSetting("GitLab Favorite Group", "dev");
 
-		public GitLabPlugin()
+		public GitLabPlugin() : base(hasSettings: true)
 		{
 			SetNameAndDescription("!!!!!GitLab");
 			Translate();
