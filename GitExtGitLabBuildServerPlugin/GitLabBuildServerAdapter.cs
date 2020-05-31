@@ -28,7 +28,7 @@ namespace GitExtGitLabBuildServerPlugin
 
 		string IBuildServerAdapter.UniqueKey => _gitLabAddress;
 
-		void IBuildServerAdapter.Initialize(IBuildServerWatcher buildServerWatcher, ISettingsSource config, Func<ObjectId, bool> isCommitInRevisionGrid = null)
+		void IBuildServerAdapter.Initialize(IBuildServerWatcher buildServerWatcher, ISettingsSource config, Func<ObjectId, bool> isCommitInRevisionGrid)
 		{
 			if (_buildServerWatcher != null)
 			{
@@ -42,7 +42,7 @@ namespace GitExtGitLabBuildServerPlugin
 			_projectName = config.GetString(GitlabSettingsConstants.DefaultProjectId, null);
 		}
 
-		IObservable<BuildInfo> IBuildServerAdapter.GetFinishedBuildsSince(IScheduler scheduler, DateTime? sinceDate = null)
+		IObservable<BuildInfo> IBuildServerAdapter.GetFinishedBuildsSince(IScheduler scheduler, DateTime? sinceDate)
 		{
 			// GetBuilds() will return the same builds as for GetRunningBuilds().
 			// Multiple calls will fetch same info multiple times and make debugging very confusing
