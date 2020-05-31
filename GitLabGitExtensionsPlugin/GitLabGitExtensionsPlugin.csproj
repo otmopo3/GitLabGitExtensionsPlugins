@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\build\</OutputPath>
+    <OutputPath>..\build\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\build\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,25 +34,25 @@
   <ItemGroup>
     <Reference Include="GitCommands">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitCommands.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitCommands.dll</HintPath>
     </Reference>
     <Reference Include="GitExtUtils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitExtUtils.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitExtUtils.dll</HintPath>
     </Reference>
     <Reference Include="GitUI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitUI.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitUI.dll</HintPath>
     </Reference>
     <Reference Include="GitUIPluginInterfaces">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\GitUIPluginInterfaces.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitUIPluginInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ResourceManager">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\Debug\ResourceManager.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -134,8 +134,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\Debug\Plugins\" /Y
-copy "$(TargetDir)NGitLab.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\Debug\Plugins\" /Y
-copy "$(TargetDir)Newtonsoft.Json.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\Debug\Plugins\" /Y</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y
+copy "$(TargetDir)NGitLab.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y
+copy "$(TargetDir)Newtonsoft.Json.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
