@@ -4,7 +4,7 @@ using ResourceManager;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
-namespace GitExtGitLabBuildServerPlugin.Settings
+namespace GitLabBuildServerAdapter.Settings
 {
 	[Export(typeof(IBuildServerSettingsUserControl))]
 	[BuildServerSettingsUserControlMetadata(GitLabBuildServerAdapter.PluginName)]

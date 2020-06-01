@@ -1,4 +1,4 @@
-﻿namespace GitExtGitLabBuildServerPlugin.Settings
+﻿namespace GitLabBuildServerAdapter.Settings
 {
 	partial class GitlabSettingsUserControl
 	{

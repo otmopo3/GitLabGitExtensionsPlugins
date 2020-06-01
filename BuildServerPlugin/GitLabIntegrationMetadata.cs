@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.Composition;
 
 
-namespace GitExtGitLabBuildServerPlugin
+namespace GitLabBuildServerAdapter
 {
 	[MetadataAttribute]
 	[AttributeUsage(AttributeTargets.Class)]

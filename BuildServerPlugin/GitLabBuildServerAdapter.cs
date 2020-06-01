@@ -1,4 +1,4 @@
-﻿using GitExtGitLabBuildServerPlugin.Settings;
+﻿using GitLabBuildServerAdapter.Settings;
 using GitLabGitExtensionsPlugin;
 using GitUI;
 using GitUIPluginInterfaces;
@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace GitExtGitLabBuildServerPlugin
+namespace GitLabBuildServerAdapter
 {
 	[Export(typeof(IBuildServerAdapter))]
 	[GitLabIntegrationMetadata(PluginName)]

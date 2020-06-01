@@ -7,8 +7,8 @@
     <ProjectGuid>{425F0AC8-A2FF-4C9D-8220-477177394AC1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GitExtGitLabBuildServerPlugin</RootNamespace>
-    <AssemblyName>GitExtGitLabBuildServerPlugin</AssemblyName>
+    <RootNamespace>GitLabBuildServerAdapter</RootNamespace>
+    <AssemblyName>GitLabBuildServerAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
