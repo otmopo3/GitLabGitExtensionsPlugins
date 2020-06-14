@@ -34,25 +34,25 @@
   <ItemGroup>
     <Reference Include="GitCommands">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitCommands.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitCommands.dll</HintPath>
     </Reference>
     <Reference Include="GitExtUtils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitExtUtils.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitExtUtils.dll</HintPath>
     </Reference>
     <Reference Include="GitUI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitUI.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitUI.dll</HintPath>
     </Reference>
     <Reference Include="GitUIPluginInterfaces">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitUIPluginInterfaces.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitUIPluginInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ResourceManager">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\ResourceManager.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -137,8 +137,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y
-copy "$(TargetDir)NGitLab.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y
-copy "$(TargetDir)Newtonsoft.Json.dll" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y</PostBuildEvent>
+	  <GitExtPluginsPath>$(SolutionDir)Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\Plugins\</GitExtPluginsPath>
+    <PostBuildEvent>
+		copy "$(TargetPath)" "$(GitExtPluginsPath)" /Y
+		copy "$(TargetDir)NGitLab.dll" "$(GitExtPluginsPath)" /Y
+		copy "$(TargetDir)Newtonsoft.Json.dll" "$(GitExtPluginsPath)" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
