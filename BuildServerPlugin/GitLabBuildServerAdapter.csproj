@@ -35,15 +35,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GitExtUtils">
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitExtUtils.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitExtUtils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GitUIPluginInterfaces">
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\GitUIPluginInterfaces.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\GitUIPluginInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ResourceManager">
-      <HintPath>..\Externals\gitextensions\GitExtensions\bin\$(Configuration)\ResourceManager.dll</HintPath>
+      <HintPath>..\Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\ResourceManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading">
-      <Version>16.4.33</Version>
+      <Version>16.5.132</Version>
     </PackageReference>
     <PackageReference Include="NGitLab.Plus">
       <Version>2.0.41</Version>
@@ -106,7 +106,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\" /Y
+    <GitExtPluginsPath>$(SolutionDir)Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\Plugins\</GitExtPluginsPath>
+    <PostBuildEvent>copy "$(TargetPath)" "$(GitExtPluginsPath)" /Y
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

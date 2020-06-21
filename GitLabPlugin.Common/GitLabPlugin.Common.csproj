@@ -17,8 +17,12 @@
     <PackageReference Include="RestSharp" Version="106.2.1" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <GitExtPluginsPath>$(SolutionDir)Externals\gitextensions\artifacts\bin\GitExtensions\$(Configuration)\net461\Plugins\</GitExtPluginsPath>
+  </PropertyGroup>
+  
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\Externals\gitextensions\GitExtensions\bin\$(ConfigurationName)\Plugins\&quot; /Y" />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(GitExtPluginsPath)&quot; /Y" />
   </Target>
 
 </Project>
