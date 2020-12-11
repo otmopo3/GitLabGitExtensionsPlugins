@@ -13,8 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NGitLab.Plus" Version="2.0.41" />
-    <PackageReference Include="RestSharp" Version="106.2.1" />
+    <PackageReference Include="NGitLab.Plus" Version="2.0.43" />
+    <PackageReference Include="RestSharp" Version="106.11.4" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.11.4" />
   </ItemGroup>
 
   <PropertyGroup>

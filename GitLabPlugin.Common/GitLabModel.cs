@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using NGitLab;
 using NGitLab.Models;
 using RestSharp;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace GitLabGitExtensionsPlugin
 {
@@ -55,7 +57,7 @@ namespace GitLabGitExtensionsPlugin
 		{
 			var mergeRequestClient = _gitLabCLient.GetMergeRequest(_project.Id);
 
-			var openedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.opened).ToList();	
+			var openedMergeRequests = mergeRequestClient.AllInState(MergeRequestState.opened).ToList();
 
 			return openedMergeRequests;
 		}
@@ -82,7 +84,7 @@ namespace GitLabGitExtensionsPlugin
 		{
 			var mergeRequestClient = _gitLabCLient.GetMergeRequest(mergeRequest.ProjectId);
 
-			MergeCommitMessage message = new MergeCommitMessage()
+			MergeCommitMessage message = new MergeCommitMessage
 			{
 				Message = mergeRequest.Title
 			};
@@ -101,8 +103,10 @@ namespace GitLabGitExtensionsPlugin
 
 			var client = new RestClient(_gitLabAddress);
 			client.AddDefaultParameter("private_token", _gitLabKey);
+			client.UseNewtonsoftJson();
 
 			var getGroupMembersRequest = new RestRequest($"api/v4/groups/{favoriteGroup.Id}/members");
+
 
 			var members = client.Get<List<GroupMember>>(getGroupMembersRequest);
 
@@ -123,6 +127,8 @@ namespace GitLabGitExtensionsPlugin
 			return pipelineUrl;
 		}
 
+		[JsonObject]
+		[Serializable]
 		class GroupMember
 		{
 			[JsonProperty("id")]

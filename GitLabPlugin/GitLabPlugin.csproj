@@ -120,10 +120,10 @@
       <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="NGitLab.Plus">
-      <Version>2.0.41</Version>
+      <Version>2.0.43</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
-      <Version>106.2.1</Version>
+      <Version>106.11.4</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
@@ -141,6 +141,8 @@
     <PostBuildEvent>
 		xcopy "$(TargetPath)" "$(GitExtPluginsPath)" /Y
 		xcopy "$(TargetDir)NGitLab.dll" "$(GitExtPluginsPath)" /Y
-		xcopy "$(TargetDir)Newtonsoft.Json.dll" "$(GitExtPluginsPath)" /Y</PostBuildEvent>
+		xcopy "$(TargetDir)Newtonsoft.Json.dll" "$(GitExtPluginsPath)" /Y
+		xcopy "$(TargetDir)RestSharp.Serializers.NewtonsoftJson.dll" "$(GitExtPluginsPath)" /Y
+		echo $(GitExtPluginsPath)</PostBuildEvent>
   </PropertyGroup>
 </Project>
